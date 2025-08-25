@@ -30,4 +30,5 @@ public class CapitalizationSettingsController {
         CapitalizationSettingsDTO createdSettings = capitalizationSettingsService.createCapitalizationSettings(capitalizationSettingsDTO);
         return ResponseEntity.ok(createdSettings);
     }
+
 }
