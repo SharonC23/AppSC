@@ -63,6 +63,9 @@ public class CapitalizationServiceImpl implements CapitalizationSettingsService 
 
     @Override
     public CapitalizationSettingsDTO updateCapitalizationSettings(Long idCapitalizationSettings, CapitalizationSettingsDTO capitalizationSttingsDTO) {
+        if (capitalizationSettingsRepository.existsById(idCapitalizationSettings)){
+
+        }
         return null;
     }
 
