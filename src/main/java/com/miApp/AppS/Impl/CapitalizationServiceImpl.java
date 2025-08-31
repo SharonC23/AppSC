@@ -1,5 +1,6 @@
 package com.miApp.AppS.Impl;
 
+
 import com.miApp.AppS.dto.CapitalizationSettingsDTO;
 import com.miApp.AppS.entity.CapitalizationSettings;
 import com.miApp.AppS.entity.User;
@@ -11,14 +12,19 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+
 
 @Service
 public class CapitalizationServiceImpl implements CapitalizationSettingsService {
 
+
     private final CapitalizationSettingsRepository capitalizationSettingsRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+
+
 
 
     @Autowired
@@ -28,6 +34,7 @@ public class CapitalizationServiceImpl implements CapitalizationSettingsService 
         this.userRepository = userRepository;
     }
 
+
     @Override
     public List<CapitalizationSettingsDTO> getAllCapitalizationSettings() {
         List<CapitalizationSettings> settings = capitalizationSettingsRepository.findAll();
@@ -36,10 +43,12 @@ public class CapitalizationServiceImpl implements CapitalizationSettingsService 
                 .collect(java.util.stream.Collectors.toList());
     }
 
+
     @Override
     public CapitalizationSettingsDTO findAllCapitalizationSettings() {
         return null;
     }
+
 
     @Override
     public CapitalizationSettingsDTO getCapitalizationSettingsById(Long idCapitalizationSettings) {
@@ -48,10 +57,11 @@ public class CapitalizationServiceImpl implements CapitalizationSettingsService 
         return modelMapper.map(settings, CapitalizationSettingsDTO.class);
     }
 
+
     @Override
     public CapitalizationSettingsDTO createCapitalizationSettings(CapitalizationSettingsDTO capitalizationSettingsDTO) {
         CapitalizationSettings capitalizationSettings = modelMapper.map(capitalizationSettingsDTO, CapitalizationSettings.class);
-        if (capitalizationSettingsDTO.getUserId() !=null){
+        if (capitalizationSettingsDTO.getUserId() != null) {
             User user = userRepository.findById(capitalizationSettingsDTO.getUserId())
                     .orElseThrow(() -> new CustomException("User not found with id: " + capitalizationSettingsDTO.getUserId()));
             capitalizationSettings.setUser(user);
@@ -61,17 +71,31 @@ public class CapitalizationServiceImpl implements CapitalizationSettingsService 
     }
 
 
+
+
     @Override
     public CapitalizationSettingsDTO updateCapitalizationSettings(Long idCapitalizationSettings, CapitalizationSettingsDTO capitalizationSttingsDTO) {
-        if (capitalizationSettingsRepository.existsById(idCapitalizationSettings)){
-
+        if (capitalizationSettingsRepository.existsById(idCapitalizationSettings)) {
+            CapitalizationSettings capitalizationSettings = modelMapper.map(capitalizationSttingsDTO, CapitalizationSettings.class);
+            capitalizationSettings.setIdCapitalization(idCapitalizationSettings);
+            capitalizationSettings = capitalizationSettingsRepository.save(capitalizationSettings);
+            return modelMapper.map(capitalizationSettings, CapitalizationSettingsDTO.class);
+        } else {
+            throw new CustomException("Capitalization settings not found with id: " + idCapitalizationSettings);
         }
-        return null;
     }
 
 
     @Override
-    public void deleteCapitalizationSettings(Long idCapitalizationSettings) {
+    public boolean deleteCapitalizationSettings(Long idCapitalizationSettings) {
+        if(capitalizationSettingsRepository.existsById(idCapitalizationSettings)){
+            capitalizationSettingsRepository.deleteById(idCapitalizationSettings);
+        } else {
+            throw new CustomException("Capitalization settings not found with id: " + idCapitalizationSettings);
+        }
+        capitalizationSettingsRepository.deleteById(idCapitalizationSettings);
+        return true;
+
 
     }
 }

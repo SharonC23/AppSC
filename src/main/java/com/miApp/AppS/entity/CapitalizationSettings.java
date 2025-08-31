@@ -20,7 +20,6 @@ public class CapitalizationSettings {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    // Relación con la entidad User
     private User user;
 
     @Column (name = "name", nullable = false)
