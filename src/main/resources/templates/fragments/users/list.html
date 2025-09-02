@@ -1,39 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/" th:replace="layout/base :: layout( 'Listado de Usuarios', ~{::section})">>
+<html xmlns:th="http://www.thymeleaf.org/"
+      th:replace="layout/base :: layout('Listado de Usuarios', ~{::section})">
+
 <head>
-    <title>Title</title>
+    <title>Listado de Usuarios</title>
+    <style>
+        body {
+            background: #f4f8fb;
+        }
+        h2 {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+        .table thead {
+            background: #0d6efd;
+            color: #fff;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .btn-custom {
+            background: #0d6efd;
+            border: none;
+            border-radius: 25px;
+            padding: 6px 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background: #0b5ed7;
+        }
+    </style>
 </head>
 
 <body>
 <section th:fragment="section">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Listado de Usuarios</h2>
-        <a th:href="@/users/new}" class="btn btn-success">
-            <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
-        </a>
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2><i class="bi bi-people-fill me-2"></i> Listado de Usuarios</h2>
+            <a th:href="@{/users/new}" class="btn btn-custom text-white">
+                <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
+            </a>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success shadow-sm rounded" th:text="${success}"></div>
+
+        <div class="card card-custom p-3">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user: ${users}">
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                            <span class="badge bg-primary" th:text="${user.role}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{'/users/edit/' + ${user.userId}}"
+                               class="btn btn-sm btn-outline-primary me-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a th:href="@{'/users/delete/' + ${user.userId}}"
+                               class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-
-    <div class="table-responsive shadow-sm">
-        <table class="table table-hover aling-middel mb-0 bg-white rounded">
-            <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Users Name</th>
-                <th>Email</th>
-                <th>Rols</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each = "user: ${users}">
-                <td th:text = "${user.userId}"> </td>
-                <td th:text = "${user.name}"> </td>
-                <td th:text = "${user.email}"> </td>
-                <td th:text = "${user.role}"> </td>
-
-            </tr>
-
+</section>
 </body>
 </html>

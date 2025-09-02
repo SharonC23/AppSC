@@ -1,9 +1,11 @@
 package com.miApp.AppS.service;
 
 import com.miApp.AppS.dto.SavingMovementDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface SavingMovementService {
 
     List <SavingMovementDTO> getAllSavingMovements();

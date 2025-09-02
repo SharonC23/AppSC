@@ -1,9 +1,11 @@
 package com.miApp.AppS.service;
 
 import com.miApp.AppS.dto.FinancialProjectionDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface FinancialProjectionService {
 
     List <FinancialProjectionDTO> getAllFinancialProjections();

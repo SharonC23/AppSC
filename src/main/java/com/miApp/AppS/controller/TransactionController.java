@@ -19,33 +19,35 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("api/all")
     public ResponseEntity<List<TransactionDTO>> getAllTransactions() {
         List<TransactionDTO> transactions = transactionService.getAllTransactions();
         return ResponseEntity.ok(transactions);
     }
 
-    @GetMapping("/{idTransaction}")
+    @GetMapping("api/{idTransaction}")
     public ResponseEntity<TransactionDTO> getTransactionById(Long transactionId) {
         TransactionDTO transaction = transactionService.getTransactionById(transactionId);
         return ResponseEntity.ok(transaction);
     }
-    @PostMapping("/create")
+    @PostMapping("api/create")
     public ResponseEntity<TransactionDTO> createTransaction(@Validated @RequestBody TransactionDTO transactionDTO) {
         transactionService.createTransaction(transactionDTO);
         return ResponseEntity.ok(transactionDTO);
     }
 
-    @PutMapping ("/update/{transactionId}")
+    @PutMapping ("api/update/{transactionId}")
     public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable Long transactionId, @RequestBody TransactionDTO transactionDTO) {
         TransactionDTO updatedTransaction = transactionService.updateTransaction(transactionId, transactionDTO);
         return ResponseEntity.ok(updatedTransaction);
     }
 
-    @DeleteMapping ("/delete/{transactionId}")
+    @DeleteMapping ("api/delete/{transactionId}")
     public ResponseEntity<Void> deleteTransaction(@PathVariable Long transactionId) {
         transactionService.deleteTransaction(transactionId);
         return ResponseEntity.noContent().build();
     }
+
+
 
 }

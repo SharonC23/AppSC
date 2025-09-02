@@ -1,8 +1,11 @@
 package com.miApp.AppS.service;
 
 import com.miApp.AppS.dto.CapitalizationSettingsDTO;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public interface CapitalizationSettingsService {
 
 

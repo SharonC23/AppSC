@@ -4,81 +4,120 @@
       th:replace="layout/base :: layout(
                    'Registro de Usuario',
                    ~{::section})">
+<head>
+    <title>Registro de Usuario</title>
+    <style>
+        body {
+            background: #f4f8fb;
+        }
+        h2 {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background: #fff;
+        }
+        .btn-custom {
+            background: #0d6efd;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background: #0b5ed7;
+        }
+        .form-control {
+            border-radius: 12px;
+        }
+        label {
+            font-weight: 500;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+
 <body>
 <section th:fragment="section">
-    <div class="shadow-sm bg-white rounded p-4 mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Registro de Usuario</h2>
-            <a th:href="@{/users}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left-circle me-1"></i>Volver al listado
-            </a>
-        </div>
-
-        <form th:action="@{/users}"
-              th:object="${userDTO}"
-              th:method="post">
-            <!-- Si editas, envía el id oculto -->
-            <input type="hidden" th:field="*{userId}"/>
-
-            <div class="mb-3">
-                <label for="name" class="form-label">Nombre</label>
-                <input type="text"
-                       id="name"
-                       th:field="*{name}"
-                       class="form-control"
-                       placeholder="Ingresa el nombre"/>
-                <div class="text-danger mt-1"
-                     th:if="${#fields.hasErrors('name')}"
-                     th:errors="*{name}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email"
-                       id="email"
-                       th:field="*{email}"
-                       class="form-control"
-                       placeholder="usuario@ejemplo.com"/>
-                <div class="text-danger mt-1"
-                     th:if="${#fields.hasErrors('email')}"
-                     th:errors="*{email}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password"
-                       id="password"
-                       th:field="*{password}"
-                       class="form-control"
-                       placeholder="••••••••"/>
-                <div class="text-danger mt-1"
-                     th:if="${#fields.hasErrors('password')}"
-                     th:errors="*{password}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="role" class="form-label">Rol</label>
-                <input type="text"
-                       id="role"
-                       th:field="*{role}"
-                       class="form-control"
-                       placeholder="p. ej. ADMIN"/>
-                <div class="text-danger mt-1"
-                     th:if="${#fields.hasErrors('role')}"
-                     th:errors="*{role}"></div>
-            </div>
-
-            <div class="d-flex justify-content-end">
-                <button type="submit"
-                        class="btn btn-success me-2">
-                    <i class="bi bi-save me-1"></i>Guardar
-                </button>
-                <a th:href="@{/users}"
-                   class="btn btn-outline-secondary">
-                    Cancelar
+    <div class="container my-4">
+        <div class="card-custom p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2><i class="bi bi-person-plus-fill me-2"></i> Registro de Usuario</h2>
+                <a th:href="@{/users}" class="btn btn-outline-secondary rounded-pill">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Volver al listado
                 </a>
             </div>
-        </form>
+
+            <form th:action="@{/users}"
+                  th:object="${userDTO}"
+                  th:method="post">
+                <!-- Si editas, envía el id oculto -->
+                <input type="hidden" th:field="*{userId}"/>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text"
+                           id="name"
+                           th:field="*{name}"
+                           class="form-control"
+                           placeholder="Ingresa el nombre"/>
+                    <div class="text-danger mt-1"
+                         th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email"
+                           id="email"
+                           th:field="*{email}"
+                           class="form-control"
+                           placeholder="usuario@ejemplo.com"/>
+                    <div class="text-danger mt-1"
+                         th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password"
+                           id="password"
+                           th:field="*{password}"
+                           class="form-control"
+                           placeholder="••••••••"/>
+                    <div class="text-danger mt-1"
+                         th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="role" class="form-label">Rol</label>
+                    <input type="text"
+                           id="role"
+                           th:field="*{role}"
+                           class="form-control"
+                           placeholder="p. ej. ADMIN"/>
+                    <div class="text-danger mt-1"
+                         th:if="${#fields.hasErrors('role')}"
+                         th:errors="*{role}"></div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit"
+                            class="btn btn-custom text-white me-2">
+                        <i class="bi bi-save me-1"></i> Guardar
+                    </button>
+                    <a th:href="@{/users}"
+                       class="btn btn-outline-secondary rounded-pill">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 </body>

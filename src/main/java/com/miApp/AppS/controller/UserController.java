@@ -22,32 +22,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    //Endpoint to get all users
-    @GetMapping("/all")
+    @GetMapping("api/all")
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         List<UserDTO> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-    //Endpoint to create a new user
-    @GetMapping("/{userId}")
+
+    @GetMapping("api/{userId}")
     public ResponseEntity<UserDTO> getUserById(Long userId) {
         UserDTO user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/create")
+    @PostMapping("api/create")
     public ResponseEntity<UserDTO> createUser(@Validated @RequestBody UserDTO userDTO) {
         userService.createUser(userDTO);
         return ResponseEntity.ok(userDTO);
 
     }
-    @PutMapping ("/update/{userId}")
+    @PutMapping ("api/update/{userId}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
         UserDTO user = userService.updateUser(userId, userDTO);
         return ResponseEntity.ok(userDTO);
     }
 
-    @DeleteMapping ("/delete/{userId}")
+    @DeleteMapping ("api/delete/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();

@@ -1,9 +1,11 @@
 package com.miApp.AppS.service;
 
 import com.miApp.AppS.dto.SavinPlanDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface SavinPlanService {
 
     List <SavinPlanDTO> getAllSavinPlans();
